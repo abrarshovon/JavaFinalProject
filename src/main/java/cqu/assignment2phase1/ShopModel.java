@@ -11,6 +11,8 @@ package cqu.assignment2phase1;
 
 
 
+import cqu.assignment2phase1.Group;
+import cqu.assignment2phase1.SummaryData;
 import java.util.*;
 
 public class ShopModel {
@@ -41,13 +43,26 @@ public class ShopModel {
         return g;
     }
     public SummaryData getSummaryData() {
-    return new SummaryData(
-        0, // served, updated in later phases
-        0, // lost, updated in later phases
-        List.copyOf(allGroups),
-        List.copyOf(groupsInShop.values())
-    );
+        return new SummaryData(
+                numberServed,
+                lostBusiness,
+                List.copyOf(allGroups),
+                List.copyOf(groupsInShop.values())
+        );
+    }
+
 }
+    public void service(int time, Group group) {
+        numberServed += group.size();
+        System.out.printf("t = %4d: Order served for Group %d%n", time, group.id());
+    }
+    public void departure(int time, Group group) {
+    System.out.printf("t = %4d: Group %d departed%n", time, group.id());
+    groupsInShop.remove(group.id());
+    // In phase 6, also increase seatsAvailable by group.size()
+}
+
+
 
 
     // The following methods will be added in later phases:
