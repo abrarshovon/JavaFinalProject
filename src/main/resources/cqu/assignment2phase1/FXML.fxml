@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cqu.assignment2phase1.FXMLController">
+   
+
+    <children>
+        <!-- Title Label -->
+        <Label fx:id="titleLabel" layoutX="20.0" layoutY="20.0" text="Ice Cream Shop Simulation"
+               style="-fx-font-weight: bold; -fx-font-size: 18;" />
+
+        <!-- Shop Capacity -->
+        <Label layoutX="20.0" layoutY="70.0" text="Shop Capacity" />
+        <TextField fx:id="shopCapacityField" layoutX="120.0" layoutY="65.0" prefWidth="150.0"/>
+
+        <!-- Duration -->
+        <Label layoutX="20.0" layoutY="120.0" text="Duration" />
+        <TextField fx:id="durationField" layoutX="120.0" layoutY="115.0" prefWidth="150.0"/>
+
+        <!-- Run and Reset Buttons -->
+        <Button fx:id="runButton" layoutX="120.0" layoutY="170.0" mnemonicParsing="false" text="Run"
+                onAction="#handleRun"/>
+        <Button fx:id="resetButton" layoutX="180.0" layoutY="170.0" mnemonicParsing="false" text="Reset"
+                onAction="#handleReset"/>
+
+        <!-- File Name -->
+        <Label layoutX="20.0" layoutY="220.0" text="File Name" />
+        <TextField fx:id="fileNameField" layoutX="120.0" layoutY="215.0" prefWidth="150.0"/>
+        <Button fx:id="saveButton" layoutX="280.0" layoutY="215.0" mnemonicParsing="false" text="Save"
+                onAction="#handleSave"/>
+
+        <!-- Summary Report Area -->
+        <Label layoutX="420.0" layoutY="20.0" text="Summary Report (and error messages)"
+               style="-fx-font-weight: bold;" />
+        <TextArea fx:id="summaryTextArea" layoutX="420.0" layoutY="50.0" prefWidth="350.0" prefHeight="270.0"/>
+
+        <!-- Exit Button -->
+        <Button fx:id="exitButton" layoutX="690.0" layoutY="330.0" mnemonicParsing="false" text="Exit"
+                onAction="#handleExit"/>
+    </children>
+</AnchorPane>
