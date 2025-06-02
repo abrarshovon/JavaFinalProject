@@ -35,13 +35,21 @@ public class ShopModel {
 
     // PHASE 2: Ignore capacity, always let group enter
     public Group arrival(int time) {
-        Group g = new Group(nextIdentifier, DEFAULT_GROUP_SIZE, time);
-        nextIdentifier++;
+    Group g = new Group(nextIdentifier, DEFAULT_GROUP_SIZE, time);
+    nextIdentifier++;
+    allGroups.add(g);
+    System.out.printf("t = %4d: Group %d (%d people) arrived%n", time, g.id(), g.size());
+    if (g.size() <= seatsAvailable) {
         groupsInShop.put(g.id(), g);
-        allGroups.add(g);
-        System.out.printf("t = %4d: Group %d (%d people) arrived%n", time, g.id(), g.size());
+        seatsAvailable -= g.size();
+        System.out.printf("t = %4d: Group %d (%d people) seated%n", time, g.id(), g.size());
         return g;
+    } else {
+        lostBusiness += g.size();
+        System.out.printf("t = %4d: Group %d (%d people) does not enter as there are no seats%n", time, g.id(), g.size());
+        return null;
     }
+}
     public SummaryData getSummaryData() {
         return new SummaryData(
                 numberServed,
@@ -59,8 +67,9 @@ public class ShopModel {
     public void departure(int time, Group group) {
     System.out.printf("t = %4d: Group %d departed%n", time, group.id());
     groupsInShop.remove(group.id());
-    // In phase 6, also increase seatsAvailable by group.size()
+    seatsAvailable += group.size();
 }
+
 
 
 
