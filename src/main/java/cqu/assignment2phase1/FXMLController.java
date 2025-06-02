@@ -8,6 +8,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+private ShopModel shopModel;
+private ShopSimulator simulator;
+private Report report; // will use from Phase 3 on
+
 
 /**
  * FXML Controller class
@@ -32,24 +36,36 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
+   
     private void handleRun() {
-        String capacity = shopCapacityField.getText().trim();
-        String duration = durationField.getText().trim();
+        summaryTextArea.clear();
+        String capacityStr = shopCapacityField.getText().trim();
+        String durationStr = durationField.getText().trim();
 
-        if (capacity.isEmpty() || duration.isEmpty()) {
+        if (capacityStr.isEmpty() || durationStr.isEmpty()) {
             summaryTextArea.appendText("Error: Please enter both capacity and duration.\n");
             return;
         }
 
         try {
-            int cap = Integer.parseInt(capacity);
-            int dur = Integer.parseInt(duration);
-            summaryTextArea.appendText("Simulation started with capacity " + cap + " for duration " + dur + " minutes.\n");
-            // Add actual simulation logic here
+            int cap = Integer.parseInt(capacityStr);
+            int dur = Integer.parseInt(durationStr);
+            if (cap <= 0 || dur <= 0) {
+                summaryTextArea.appendText("Error: Capacity and duration must be positive integers.\n");
+                return;
+            }
+
+            shopModel = new ShopModel(cap);
+            simulator = new ShopSimulator(shopModel);
+            simulator.initialize(new ArrivalEvent(0));
+            simulator.run(dur);
+
+            summaryTextArea.appendText("Simulation completed. Check the console for trace.\n");
         } catch (NumberFormatException e) {
             summaryTextArea.appendText("Error: Capacity and duration must be numbers.\n");
         }
     }
+
 
     @FXML
     private void handleReset() {
