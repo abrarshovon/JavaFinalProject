@@ -40,6 +40,15 @@ public class ShopModel {
         System.out.printf("t = %4d: Group %d (%d people) arrived%n", time, g.id(), g.size());
         return g;
     }
+    public SummaryData getSummaryData() {
+    return new SummaryData(
+        0, // served, updated in later phases
+        0, // lost, updated in later phases
+        List.copyOf(allGroups),
+        List.copyOf(groupsInShop.values())
+    );
+}
+
 
     // The following methods will be added in later phases:
     // public void service(int time, Group group) { ... }

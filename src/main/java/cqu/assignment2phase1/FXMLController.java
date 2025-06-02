@@ -55,10 +55,18 @@ public class FXMLController implements Initializable {
                 return;
             }
 
+            
             shopModel = new ShopModel(cap);
             simulator = new ShopSimulator(shopModel);
             simulator.initialize(new ArrivalEvent(0));
             simulator.run(dur);
+
+            SummaryData summary = shopModel.getSummaryData();
+            report = new Report(summary);
+            String reportText = report.exportAsText();
+            summaryTextArea.setText(reportText);
+
+
 
             summaryTextArea.appendText("Simulation completed. Check the console for trace.\n");
         } catch (NumberFormatException e) {
